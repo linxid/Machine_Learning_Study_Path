@@ -8,27 +8,27 @@ Github Page：https://linxid.github.io/
 # Chapter1 Introduction
 ## 1.1 What is Big Data:
 
-**Anwser：**used to describe a massive structured and unstructured data that is so large that it is difficult to process using traditional database and software techniques.
+**Anwser：** used to describe a massive structured and unstructured data that is so large that it is difficult to process using traditional database and software techniques.
 
 ## 1.2 4V of Bid Data:
-**Anwser：**Volume:大量;Velocity:快速；Variety:多样;Veracity:真实准确。
+**Anwser：** Volume:大量;Velocity:快速；Variety:多样;Veracity:真实准确。
 
 ## 1.3 What is Data mining:
-**Anwser：**under acceptable computational efficiency limitations,applying data analysis
+**Anwser：** under acceptable computational efficiency limitations,applying data analysis
 and discovery algorithms, to produce a particular enumeration of patterns over the
 data
 
 ## 1.4 Main Data Mining Tasks:
-**Anwser：**Association rule mining,cluster analysis,classification,prediction,outlier detection
+**Anwser：** Association rule mining,cluster analysis,classification,prediction,outlier detection
 
 # Chapter2 Basic Concepts
 
 ## 2.1 Tasks of ML:
-**Anwser：**supervised learning;Unsupervised learning;Semi-supervised learning
+**Anwser：** supervised learning;Unsupervised learning;Semi-supervised learning
 Overfitting,Underfitting
 
 ## 2.2 How to avoid Overfitting:
-**Anwser：**Increase Sample;Remove outliers;Decrease model complecity,train-validation-test
+**Anwser：** Increase Sample;Remove outliers;Decrease model complecity,train-validation-test
 (cross validation),regularization
 
 ## 2.3 Basic Algorithm：
