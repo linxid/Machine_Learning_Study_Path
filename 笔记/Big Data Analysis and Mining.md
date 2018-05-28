@@ -1,3 +1,10 @@
+![image.png](https://upload-images.jianshu.io/upload_images/665202-bb94c950d325d43f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+<!--more-->
+csdn：https://blog.csdn.net/linxid/article/details/80494922
+
+Github Page：https://linxid.github.io/
+
 # Chapter1 Introduction
 ## 1.1 What is Big Data:
 
