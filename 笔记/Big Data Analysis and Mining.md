@@ -10,16 +10,33 @@ Github Page：https://linxid.github.io/
 
 **Answer：** used to describe a massive structured and unstructured data that is so large that it is difficult to process using traditional database and software techniques.
 
-## 1.2 4V of Bid Data:
+## 1.2 4V of Big Data:
 **Answer：** Volume:大量; Velocity:快速；Variety:多样; Veracity:真实准确。
 
-## 1.3 What is Data mining:
-**Answer：** under acceptable computational efficiency limitations, applying data analysis
+## 1.3 Knowledge Discovery from Data (KDD)
+1. **Data cleaning** (to remove noise and inconsistent data)
+2. **Data integration** (where multiple data sources may be combined)
+3. **Data selection** (where data relevant to the analysis task are retrieved from the
+database)
+4. **Data transformation** (where data are transformed and consolidated into forms
+appropriate for mining by performing summary or aggregation operations)4
+5. **Data mining** (an essential process where intelligent methods are applied to extract
+data patterns)
+6. **Pattern evaluation** (to identify the truly interesting patterns representing knowledge
+based on interestingness measures—see Section 1.4.6)
+7. **Knowledge presentation** (where visualization and knowledge representation techniques are used to present mined knowledge to users)
+
+## 1.4 What is Data mining:
+**Answer：** Under acceptable computational efficiency limitations, applying data analysis
 and discovery algorithms, to produce a particular enumeration of patterns over the
 data
 
-## 1.4 Main Data Mining Tasks:
-**Answer：** Association rule mining,cluster analysis,classification,prediction,outlier detection
+## 1.5 Main Data Mining Tasks:
+**Answer：** 
+1. Association rule mining (_**Two Steps:** Find All Frequent itemsets, Generate strong association rules from frequent itemsets_),
+2. Cluster analysis (_**Methods:** Partitioning method, Hierarchical method, Density-Based method, and Grid-Based method_),
+3. Classification/Prediction, 
+4. Outlier detection
 
 # Chapter2 Basic Concepts
 
