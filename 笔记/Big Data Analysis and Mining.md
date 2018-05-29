@@ -8,27 +8,27 @@ Github Page：https://linxid.github.io/
 # Chapter1 Introduction
 ## 1.1 What is Big Data:
 
-**Anwser：** used to describe a massive structured and unstructured data that is so large that it is difficult to process using traditional database and software techniques.
+**Answer：** used to describe a massive structured and unstructured data that is so large that it is difficult to process using traditional database and software techniques.
 
 ## 1.2 4V of Bid Data:
-**Anwser：** Volume:大量;Velocity:快速；Variety:多样;Veracity:真实准确。
+**Answer：** Volume:大量; Velocity:快速；Variety:多样; Veracity:真实准确。
 
 ## 1.3 What is Data mining:
-**Anwser：** under acceptable computational efficiency limitations,applying data analysis
+**Answer：** under acceptable computational efficiency limitations, applying data analysis
 and discovery algorithms, to produce a particular enumeration of patterns over the
 data
 
 ## 1.4 Main Data Mining Tasks:
-**Anwser：** Association rule mining,cluster analysis,classification,prediction,outlier detection
+**Answer：** Association rule mining,cluster analysis,classification,prediction,outlier detection
 
 # Chapter2 Basic Concepts
 
 ## 2.1 Tasks of ML:
-**Anwser：** supervised learning;Unsupervised learning;Semi-supervised learning
-Overfitting,Underfitting
+**Answer：** supervised learning; Unsupervised learning; Semi-supervised learning
+Overfitting, Underfitting
 
 ## 2.2 How to avoid Overfitting:
-**Anwser：** Increase Sample;Remove outliers;Decrease model complecity,train-validation-test
+**Answer：** Increase Sample;Remove outliers;Decrease model complecity,train-validation-test
 (cross validation),regularization
 
 ## 2.3 Basic Algorithm：
@@ -43,7 +43,7 @@ K-means；Hierarchical Clustering；DBSCAN；Apriori;
 
 # Chapter3 Hashing
 ## Why we need Hashing?
-To resolve challenge,like curse of dimensionality,storage cost and query speed.
+To resolve the challenge, like the curse of dimensionality, storage cost, and query speed.
 
 ## 3.1 Find Similar Items
 
@@ -52,7 +52,7 @@ To resolve challenge,like curse of dimensionality,storage cost and query speed.
 
 ### 3.1.2 Minhashing
 
-**Definition:** the number of first row in which column
+**Definition:** the number of the first row in which column
 
 * Jaccard Similarity of Sets
 * From sets to Boolean Matrices
@@ -78,7 +78,7 @@ https://blog.csdn.net/linxid/article/details/79745964
 * Low Time complexity
 * Concept Drift
 
-## 5.2 What is Concept drift
+## 5.2 What is Concept Drift
 Concept drift means that the statistical properties of the target variable, which the model is trying to predict, change over time in unforeseen ways.
 
 **the probability distribution changes.**
@@ -113,12 +113,12 @@ based on the change of the classification performance.
 * Use a limited amount of memory
 * Work in a limited amount of time
 
-### 5.4.1 VFDT(Very Fast Decsion Tree)
+### 5.4.1 VFDT(Very Fast Decision Tree)
 **Algorithm:**
 * calculate the information gain for the attributes and determines the best two attributes
 * At each node,check for the condition: delta(G) = G(a) - G(b) > e
 * if condition satisfied, create child nodes based on the test at the node.
-* if not,stream in more examples and perform calculations till condition satisfied.
+* if not, stream in more examples and perform calculations till condition satisfied.
 
 **Strengths:**
 * Scale better than traditional methods
@@ -155,9 +155,9 @@ https://www.hindawi.com/journals/tswj/2015/235810/
 * scale free
 
 ### Six degree of separation:
-The average distance between two randomly individuals in the USA : 6
+The average distance between two random individuals in the USA: 6
 
-The average distance between two randomly users in Facebook(721 million active users, 69 billion links ) : 4.74
+The average distance between two randomly users in Facebook(721 million active users, 69 billion links): 4.74
 
 ## 6.2 Key Node Identification
 
@@ -172,22 +172,22 @@ Advantage:
 * Reveal the hierarchy structure clearly
 
 Disadvantage:
-* Can not used in a lot of networks
-* Too coarse,some times is inferior to degree measure.
+* Can not use in a lot of networks
+* Too coarse, sometimes is inferior to degree measure.
 
 [Explation:](https://www.youtube.com/watch?v=6Mk9NnboDsQ)
 
-Prune all the nodes with degree 1 till no degree 1 nodes left in the network,the nodes pruend have ks=1.Similarly prune other nodes having degree 2 and assign them ks =2.Repeat,till the graph becomes empty.
+Prune all the nodes with degree 1 till no degree 1 nodes left in the network, the nodes pruned have ks=1. Similarly, prune other nodes having degree 2 and assign them ks =2. Repeat, till the graph becomes empty.
 
 ### 6.2.3 PageRank:
 
-If a page is linked with many high-cited pages,then it will gain high PageRank score.
-We assume a customer can use URL to link to any pages,to slove the problem that a node has no outlinks.
+If a page is linked with many high-cited pages, then it will gain high PageRank score.
+We assume a customer can use URL to link to any pages, to solve the problem that a node has no outlinks.
 
 the equation of a Page's PR:
 ![image.png](https://upload-images.jianshu.io/upload_images/665202-b964a4bd418b6359.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-**Explation:**
+**Explanation:**
 
 http://blog.jobbole.com/23286/
 
@@ -200,7 +200,7 @@ https://en.wikipedia.org/wiki/PageRank#Algorithm
 may return an imbalanced partition.
 
 * **Ratio Cut & Normalized cut:**
-  How to calculate Ratio Cut and Normalized Cut.We can use spectral clustering algorithm to calculate it.
+  How to calculate Ratio Cut and Normalized Cut. We can use a spectral clustering algorithm to calculate it.
 * **Modularity Maximization:**
 measure the strength of a community by taking into account the degree distribution.
 
