@@ -85,7 +85,7 @@ https://blog.csdn.net/linxid/article/details/79745964
 * Resevoir Sampling
 * Sampling + KDD
 
-
+----------------------------------------------
 * ITS - Inverse Transform Sampling
   - Idea: Sampling is based on Cumulative Distribution Function (CDF)
   - CDF Sampling: Yi ~ U(0,1)
