@@ -68,6 +68,48 @@ To resolve challenge,like curse of dimensionality,storage cost and query speed.
 https://blog.csdn.net/linxid/article/details/79745964
 
 # Chapter4 Sampling
+## Why Sampling
+* Big Data Issue : Storage Complexity, Complexity calculation
+* Posterior Estimation: Expectation estimation
+
+## Types of Sampling (What we did in class)
+### Basics
+* ITS - Inverse Transform Sampling
+* RS - Rejection Sampling
+* IS - Importance Sampling
+* MCMC - Markov Chain Monte Carlo
+* MHS - Metropolis-Hastings
+* GiS - Gibbs Sampling
+### Stream Sampling
+* Bernoulli Sampling
+* Resevoir Sampling
+* Sampling + KDD
+
+----------------------------------------------
+* ITS - Inverse Transform Sampling
+  - Idea: Sampling is based on Cumulative Distribution Function (CDF)
+  - CDF Sampling: Yi ~ U(0,1)
+                  Xi = CDF^-1(Yi)
+  - Drawbacks: It is hard to get the inverse function
+  
+* RS - Rejection Sampling
+  - Idea: Get a graph of the density function (DF) of all the samples
+          Accept the samples under the region of DF
+          Reject the others
+  - RS: Xi~ Q(X)
+        a ~ U(0,Q(Xi))
+        if (a <= P(Xi)): Accept
+        else : Reject
+        
+* IS - Importance Sampling
+  - Idea: No rejection like RS. Rather, assign weights to each instance
+          Target the correct distribution
+  - IS: E(f(X)) = (1/n) * Summation(f(Xi) * w(Xi))
+  
+*Difference between RS and IS
+  - Instances from RS share SAME WEIGHT, only SOME OF THE INSTANCES are reserved
+  - Instances from IS have DIFFERENT WEIGHT, only ALL THE INSTANCES are reserved
+  - IS is less sensitive to proposal distribution (just a little sensitive to PROPDIST)
 
 # Chapter5 Data Stream
 ## 5.1 What is Data Stream
