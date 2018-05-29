@@ -45,7 +45,7 @@ data
 Overfitting, Underfitting
 
 ## 2.2 How to avoid Overfitting:
-**Answer：** Increase Sample;Remove outliers;Decrease model complecity,train-validation-test
+**Answer：** Increase Sample;Remove outliers;Decrease model complexity,train-validation-test
 (cross validation),regularization
 
 ## 2.3 Basic Algorithm：
@@ -268,3 +268,36 @@ measure the strength of a community by taking into account the degree distributi
 http://blog.sciencenet.cn/blog-3075-982948.html
 
 # Chapter7 Hadoop-Spark
+## Hadoop
+### Definition.
+Hadoop is a software framework for distributed processing of large datasets across large clusters of computers
+### Design principles
+Automatic parallelization & distribution, fault tolerance and automatic recovery, clean and simple programming 
+abstraction
+* **Main properties of HDFS**
+Large, replication, failure, fault tolerance
+* **Hadoop vs other systems**
+
+|  | Distributed database | Hadoop|
+| --- | --- | --- |
+| Computing model | Transactions, concurrency control| Job and no concurrency control|
+| Data model | Sturcture data, read/write mode | un(semi)structure, read only mode|
+| Cost model | Expensive| Cheap|
+| Fault tolerance | Rare | Common|
+| Key characteristics | Efficiency, optimizations, fine-tuning| Scalability, flexibility, fault tolerance|
+
+## SPARK
+* **MapReduce limitations**
+Great at one-pass computation, but inefficient for `multi-pass` algorithms.
+No efficient primitives for data sharing
+* **Spark's Goal**
+Generalize MapReduce to support new apps within same engine
+### MapReduce VS Spark**
+
+| MapReduce | Spark |
+| --- | --- |
+| Great **at one-pass** computation, but inefficient for `multi-pass` algorithims | Extends programming languages with ** a distributed collection data-structure **(RDD)** |
+| No efficient primitives for data sharing | Clean APIs in Java, Scala, Python, R |
+
+
+
