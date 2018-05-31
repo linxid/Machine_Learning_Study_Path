@@ -34,6 +34,8 @@ data
 ## 1.5 Main Data Mining Tasks:
 **Answer：** 
 1. Association rule mining (_**Two Steps:** Find All Frequent itemsets, Generate strong association rules from frequent itemsets_),
+Finding frequent patterns, associations, correlations, or causal structures among sets of items or objects in transaction databases, relational databases, and other information repositories.
+
 2. Cluster analysis (_**Methods:** Partitioning method, Hierarchical method, Density-Based method, and Grid-Based method_),
 3. Classification/Prediction, 
 4. Outlier detection
