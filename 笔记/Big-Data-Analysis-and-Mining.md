@@ -1,9 +1,13 @@
+---
+title: Big Data Analysis and Mining
+date: 2018-05-29 05:08:46
+tags: [大数据,数据分析,数据挖掘]
+---
+
 ![image.png](https://upload-images.jianshu.io/upload_images/665202-bb94c950d325d43f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<!--more-->  
 
-<!--more-->
 csdn：https://blog.csdn.net/linxid/article/details/80494922
-
-Github Page：https://linxid.github.io/
 
 # Chapter1 Introduction
 ## 1.1 What is Big Data:
@@ -62,12 +66,79 @@ To resolve challenge,like curse of dimensionality,storage cost and query speed.
 **How to compute the Signature matrix**
 
 ### 3.1.3 Locality Sensitive Hashing(LSH)
-
-
 ### References：
 https://blog.csdn.net/linxid/article/details/79745964
 
-# Chapter4 Sampling
+# Chapter4 Sampling for Big Data
+
+## 4.1 Why we need sampling:
+
+>sampling is the selection of a subset (a statistical sample) of individuals from within a statistical population to estimate characteristics of the whole population.
+
+>#### Two advantages of sampling:
+ the cost is lower and data collection is faster than measuring the entire population.
+
+**The Problem:** generating values if X which are distributed according to the distribution.
+
+## 4.2 Basics of Sampling
+### 4.2.1 [Inverse Transfrom Sampling](https://en.wikipedia.org/wiki/Inverse_transform_sampling)
+
+samling based on the inverse of Cumulative Distribution Function
+
+**Algorithm:**
+* 1.Generate a random number u from the standard uniform distribution in the interval [0,1].
+* 2.Compute the value x such that Fx(x) = u.
+* 3.Take x to be the random number drawn from the distribution described by Fx.
+
+**Drawbacks:** It is hard to get the inverse function.
+
+### 4.2.2 [Rejection Sampling](https://en.wikipedia.org/wiki/Rejection_sampling)
+
+![image.png](https://upload-images.jianshu.io/upload_images/665202-a0372c62748b1dd0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+The problem of Rejection Sampling can be solved by using Adaptive Rejection sampling.
+**Algorithm:**
+* 1.Obtain a sample y from proposal distribution Y and a sample u from Uniform(0,1)(the uniform distribution over the unit interval).
+* 2.If u<f(y)/Mg(y)(acceptance probability) : accept y;  
+  else:reject.
+
+### 4.2.3 Importance Sampling
+Not reject but assign weight to each instance so that the correct distribution is targeted.
+
+### 4.2.4 Rejection Sampling VS Importance Sampling:
+* Instances from RS share the same “weight”, only some of instances are reserved
+* Instances from IS have different weight, all instances are reserved
+* IS is less sensitive to proposal distribution  
+
+## 4.3 MCMC(Markov chain Monte Carlo)
+**Markov property:**  
+ If the conditional probability distribution of future states of the process depends only upon the present state.
+ ![image.png](https://upload-images.jianshu.io/upload_images/665202-df5dd02a33714ebf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**Markov chain:**  
+A Markov chain is a sequence of random variables x1,x2,x3...with Markov property.
+
+### 4.3.1 MH(Metropolis-Hastings) Sampling：
+
+### 4.3.2 Gibbs Sampling：
+
+### 4.3.3 Gibbs V.S. MH
+**MH Sampling:**
+* Doesn’t have a 100% acceptance rate
+* Doesn’t require to know the full conditionals
+* Acceptance threshold would be very crucial
+
+**Gibbs Sampling:**
+* 100% acceptance rate
+* Need to know the full conditionals
+
+### References：
+https://blog.csdn.net/itplus/article/details/19168937
+https://blog.csdn.net/google19890102/article/details/51755242
+https://en.wikipedia.org/wiki/Sampling_(statistics)
+https://blog.csdn.net/ustbxy/article/details/45458725
+https://blog.csdn.net/baimafujinji/article/details/51407703  
+《Pattern Recognition and Machine Learning》Bishop
 
 # Chapter5 Data Stream
 ## 5.1 What is Data Stream
@@ -90,14 +161,14 @@ p(y|x) changes
 p(x)changes,but not p(y|x)
 
 ## 5.3 Concept drift detection:
-### 1.distribution-based detector
+### 5.3.1.distribution-based detector
 Monitoring the change of data distributions
 #### Disadvantage:
 * Hard to determine window size
 * learn concept drift slower
 * virtual concept drift
 
-### 2.Error-rate based detector:
+### 5.3.2.Error-rate based detector:
 based on the change of the classification performance.
 #### Disadvantage:
 * Sensitive to noise
@@ -196,16 +267,93 @@ https://www.cnblogs.com/rubinorth/p/5799848.html
 https://en.wikipedia.org/wiki/PageRank#Algorithm
 ## 6.3 Community Detection
 #### How to find intrinsic Community structure in large-scale networks:
+
 * **Minimum cut:**
 may return an imbalanced partition.
 
 * **Ratio Cut & Normalized cut:**
   How to calculate Ratio Cut and Normalized Cut.We can use spectral clustering algorithm to calculate it.
+
 * **Modularity Maximization:**
 measure the strength of a community by taking into account the degree distribution.
 
 #### A new viewpoint for community detection
+
 ### References：
 http://blog.sciencenet.cn/blog-3075-982948.html
 
 # Chapter7 Hadoop-Spark
+
+## 7.1 Hadoop
+
+### 7.1.1 What is Hadoop
+
+#### Definition：
+Hadoop is a software framework for distributed processing of large datasets across large clusters of computers.
+
+#### Design principles
+* Automatic parallelization & distribution
+* fault tolerance and automatic recovery
+* clean and simple programming abstraction
+
+#### Hadoop Architecture:
+* Distributed file system (HDFS)
+* Execution engine (MapReduce)
+![image.png](https://upload-images.jianshu.io/upload_images/665202-0d2dcebd1c1f3f1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+### 7.1.2 [HDFS(Hadoop Distributed File System)](https://www.yiibai.com/hadoop/hadoop_hdfs_overview.html)
+
+#### What is HDFS:
+The HDFS is a distributed, scalable, and portable file system written in Java for the Hadoop framework
+![image.png](https://upload-images.jianshu.io/upload_images/665202-7476a6640a70103c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**Namenode(名称结点):**
+
+**Datanodes(数据结点)：**
+
+#### Main properties of HDFS:
+* **Large:** A HDFS instance may consist of thousands of server machines
+* **replication:** Each data block is replicated many times
+* **failure:** Failure is the norm rather than exception
+* **fault tolerance:** Detection of faults and quick, automatic recovery from them is a core architectural goal of HDFS
+
+#### Hadoop vs other systems:
+
+|  | Distributed database | Hadoop|
+| --- | --- | --- |
+| Computing model | Transactions, concurrency control| Job and no concurrency control|
+| Data model | Sturcture data, read/write mode | un(semi)structure, read only mode|
+| Cost model | Expensive| Cheap|
+| Fault tolerance | Rare | Common|
+| Key characteristics | Efficiency, optimizations, fine-tuning| Scalability, flexibility, fault tolerance|
+
+### 7.1.3 [MapReduce](https://en.wikipedia.org/wiki/MapReduce)
+#### What is MapReduce:
+MapReduce is a programming model and an associated implementation for processing and generating big data sets with a parallel, distributed algorithm on a cluster.
+
+Users only provide the “Map” and “Reduce” functions.
+
+#### How it Works:
+![image.png](https://upload-images.jianshu.io/upload_images/665202-480d44aaa4a23d13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### Example:
+
+
+## 7.2 Spark
+### MapReduce limitations:
+* Great at one-pass computation, but inefficient for `multi-pass` algorithms.
+* No efficient primitives for data sharing
+
+### Spark's Goal:
+Generalize MapReduce to support new apps within same engine
+
+### MapReduce VS Spark:
+
+| MapReduce | Spark |
+| --- | --- |
+| Great **at one-pass** computation, but inefficient for `multi-pass` algorithims | Extends programming languages with ** a distributed collection data-structure **(RDD)** |
+| No efficient primitives for data sharing | Clean APIs in Java, Scala, Python, R |
+
+### References：
+https://www.yiibai.com/hadoop/hadoop_introduction_to_hadoop.html
+https://blog.csdn.net/qq_26437925/article/details/78467216
