@@ -1,0 +1,12 @@
+
+
+body { font-family: Georgia; color: black; font-size:18 px; background: white;}
+
+.original{ color: red;}
+.updated{ color: blue;}
+
+.msg { padding: 10px; background: #000; position: relative; }
+.msg h1 { color: #E0E0E0;  }
+.msg a { color: #fff }.msg a#dl { margin-left: 20px; background: #408814; color: white; padding: 1px 1px; text-decoration: none; }
+.msg a#dl:hover { background: #266400; }
+

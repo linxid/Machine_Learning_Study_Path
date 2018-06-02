@@ -1,0 +1,506 @@
+﻿<html>
+<head>
+  <title>17_Large_Scale_Machine_Learning</title>
+  <basefont face="Tahoma" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/209040 (en-US); Windows/6.1.7601 Service Pack 1;"/>
+  <link rel="stylesheet" type="text/css" href="style.css" media="all" />
+  <meta name="keywords" content="machine learning, Stanford, Hadoop, Map Reduce, online learning, large scale machine learning, mini batch machine learning, batch machine learning, stochastic gradient descent"/>
+</head>
+<body>
+<a name="2508"/>
+<h1>17: Large Scale Machine Learning</h1>
+
+<p><a href="16_Recommender_Systems.html">Previous</a> <a href="18_Application_Example_OCR.html">Next</a></body></html> <a href="index.html">Index</a> </p>
+
+<div>
+<u style="font-size: 27px;"><b>Learning with large datasets</font></b></u>
+
+<ul><li>This set of notes look at large scale machine learning - how do we deal with big datasets?</li>
+<li>If you look back at 5-10 year history of machine learning, ML is much better now because we have much more data<ul>
+	<li>However, with this increase in data comes great responsibility? No, comes a much more significant computational cost</li>
+	<li>New and exciting problems are emerging that need to be dealt with on both the algorithmic and architectural level</li></ul></li></ul>
+
+<div>
+<b>Why large datasets?</b></div>
+<ul><li>One of best ways to get high performance is take a low bias algorithm and train it on a lot of data<ul>
+	<li>e.g. Classification between confusable words</li>
+	<li>We saw that so long as you feed an algorithm lots of data they all perform pretty similarly
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image.png" type="image/png" style="cursor: default;"/></li>
+	<li>So it's good to learn with large datasets</li></ul></li>
+<li>But learning with large datasets comes with its own computational problems</li></ul>
+
+<div>
+<b>Learning with large datasets</b></div>
+<ul><li>For example, say we have a data set where m = 100, 000, 000<ul>
+	<li>This is pretty realistic for many datasets<ul>
+		<li>Census data</li>
+		<li>Website traffic data</li></ul></li>
+	<li>How do we train a logistic regression model on such a big system?
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [1].png" type="image/png" style="cursor: default;"/><ul>
+		
+		<li>So you have to sum over 100,000,000 terms per step of gradient descent</li></ul></li></ul></li>
+<li>Because of the computational cost of this massive summation, we'll look at more efficient ways around this<ul>
+	<li>- Either using a different approach</li>
+	<li>- Optimizing to avoid the summation</li></ul></li>
+<li>First thing to do is ask if we can train on 1000 examples instead of 100 000 000<ul>
+	<li>Randomly pick a small selection</li><li>Can you develop a system which performs as well?<ul>
+		<li>Sometimes yes - if this is the case you can avoid a lot of the headaches associated with big data</li></ul></li></ul></li>
+<li>To see if taking a smaller sample works, you can sanity check by plotting error vs. training set size<ul>
+	<li>If our plot looked like this
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [2].png" type="image/png" style="cursor: default;"/></li>
+	
+	<li>Looks like a <b><font color="#1C3387">high variance problem</font></b><ul>
+		<li>More examples should improve performance</li></ul></li>
+<li>If plot looked like this
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [3].png" type="image/png" style="cursor: default"/></li>
+	
+	<li>This looks like a <b><font color="#1C3387">high bias problem</font></b><ul>
+	<li>More examples may not actually help - save a lot of time and effort if we know this <i>before hand</i></li>
+	<li>One natural thing to do here might be to;<ul>
+		<li>Add extra features</li>
+		<li>Add extra hidden units (if using neural networks)</li></ul></li></ul></li></ul></li></ul>
+
+<div>
+<br></div><div style="font-size: 27px;"><b><u>Stochastic Gradient Descent</font></u></b></div>
+
+<ul><li>For many learning algorithms, we derived them by coming up with an optimization objective (cost function) and using an algorithm to minimize that cost function<ul>
+	<li>When you have a large dataset, gradient descent becomes very expensive</li>
+	<li>So here we'll define a different way to optimize for large data sets which will allow us to scale the algorithms</li></ul></li>
+<li>Suppose you're training a linear regression model with gradient descent<ul>
+	<li><b><font color="#1C3387">Hypothesis</font></b>
+
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [4].png" type="image/png" style="cursor: default;"/></li>
+	
+	<li><b><font color="#1C3387">Cost function</font></b>
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [5].png" type="image/png" style="cursor: default;"/></li>
+	
+	<li>If we plot our two parameters vs. the cost function we get something like this
+
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [6].png" type="image/png" style="cursor: default;"/></li>
+	
+	<li> Looks like this bowl shape surface plot</li></ul></li>
+
+<li><b>Quick reminder - how does gradient descent work?</b>
+
+<br><img src="17_Large_Scale_Machine_Learning_files/Image [7].png" type="image/png" style="cursor: default;"/><ul>
+	<li>In the inner loop we repeatedly update the parameters θ </li></ul></li>
+<li>We will use linear regression for our algorithmic example here when talking about <b><font color="#1C3387">stochastic gradient descent</font></b>, although the ideas apply to other algorithms too, such as<ul>
+	<li>Logistic regression</li>
+	<li>Neural networks</li></ul></li>
+<li>Below we have a contour plot for gradient descent showing iteration to a  global minimum
+
+<br><img src="17_Large_Scale_Machine_Learning_files/Image [8].png" type="image/png" style="cursor: default;"/></li>
+
+<li>As mentioned, if <i>m</i> is large gradient descent can be very expensive</li>
+<li>Although so far we just referred to it as gradient descent, this kind of gradient descent is called <b><font color="#1C3387"> batch gradient descent</font></b><ul>
+	<li>This just means we look at all the examples at the same time</li></ul></li>
+<li>Batch gradient descent is not great for huge datasets<ul>
+	<li>If you have 300,000,000  records you need to read in all the records into memory from disk because you can't store them all in memory<ul>
+		<li>By reading all the records, you can move one step (iteration) through the algorithm</li></ul></li>
+	<li>Then repeat for EVERY step<ul>
+		<li>This means it takes a <b>LONG </b>time to converge</li>
+		<li>Especially because disk I/O is typically a system bottleneck anyway, and this will inevitably require a <i>huge</i> number of reads</li></ul></li></ul></li>
+<li>What we're going to do here is come up with a different algorithm which only needs to look at single example at a time</li></ul>
+
+<div><br><b>Stochastic gradient descent</b></div>
+
+<ul><li>Define our cost function slightly differently, as
+
+<br><img src="17_Large_Scale_Machine_Learning_files/Image [9].png" type="image/png" style="cursor: default;"/><ul>
+	
+	<li>So the function represents the cost of θ with respect to a specific example (x<sup>i</sup>,y<sup>i</sup>)<ul>
+		<li> And we calculate this value as one half times the squared error on that example</li></ul></li>
+	<li> Measures how well the hypothesis works on a single example</li></ul></li>
+<li>The overall cost function can now be re-written in the following form;
+
+<br><img src="17_Large_Scale_Machine_Learning_files/Image [10].png" type="image/png" style="cursor: default;"/><ul>
+
+	<li> This is equivalent to the batch gradient descent cost function </b></li></ul></li>
+<li>With this slightly modified (but equivalent) view of linear regression we can write out how stochastic gradient descent works</li><ul>
+	<li><b><u>1) - Randomly shuffle</u></b>
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [11].png" type="image/png" style="cursor: default;"/></li>
+	
+	<li><u><b>2) - Algorithm body</b></u>
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [12].png" type="image/png" style="cursor: default;"/></li></ul>
+<li><i>So what's going on here?</i><br></font><ul>
+	<li>The term
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [13].png" type="image/png" style="cursor: default;"/></li>
+	
+	<li>Is the same as that found in the summation for batch gradient descent</li>
+	<li>It's possible to show that this term is equal to the partial derivative with respect to the parameter θ<sub>j</sub> of the cost (θ,(x<sup>i</sup>,y<sup>i</sup>))
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [14].png" type="image/png" style="cursor: default;"/></li></ul></li>
+	
+<li>What stochastic gradient descent algorithm is doing is scanning through each example<ul>
+	<li>The inner for loop does something like this...<ul>
+		<li>Looking at example 1, take a step with respect to the cost of just the 1st training example<ul>
+			<li>Having done this, we go on to the second training example</li></ul></li>
+		<li>Now take a second step in parameter space to try and fit the second training example better<ul>
+			<li>Now move onto the third training example</font></li></ul></li>
+		<li>And so on...</li>
+		<li>Until it gets to the end of the data</li></ul></li>
+	<li>We may now repeat this who procedure and take multiple passes over the data</li></ul></li>
+<li>The <font color="#1C3387"><b>randomly shuffling</b></font> at the start means we ensure the data is in a random order so we don't bias the movement<ul>
+	<li>Randomization should speed up convergence a little bit</li></ul></li>
+<li>Although stochastic gradient descent is a lot like batch gradient descent, rather than waiting to sum up the gradient terms over all <i>m</i> examples, we take just one example and make progress in improving the parameters already<ul>
+	<li>Means we update the parameters on EVERY step through data, instead of at the end of each loop through all the data</li></ul></li>
+<li>What does the algorithm do to the parameters?<ul>
+	<li>As we saw, batch gradient descent does something like this to get to a global minimum
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [15].png" type="image/png" style="cursor: default;"/></li>
+	
+	<li>With stochastic gradient descent every iteration is much faster, but every iteration is flitting a single example
+
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [16].png" type="image/png" style="cursor: default;"/><ul>	
+		<li>What you find is that you &quot;generally&quot; move in the direction of the global minimum, but not always</li>
+		<li>You never actually converges like batch gradient descent does, but ends up wandering around some region close to the global minimum<ul>
+			<li>In practice, this isn't a problem - as long as you're close to the minimum that's probably OK</li></ul></li></ul></li></ul></li>
+<li>One final implementation note<ul>
+	<li>May need to loop over the entire dataset 1-10 times</li>
+	<li>If you have a truly massive dataset it's possible that by the time you've taken a first pass through the dataset you may already have a perfectly good hypothesis<ul>
+		<li>In which case the inner loop might only need to happen once if <i>m</i> is very very large</li></ul></li></ul></li>
+<li>If we contrast this to batch gradient descent <ul>
+	<li>We have to make k passes through the entire dataset, where k is the number of steps needed to move through the data<</li></ul></li></ul>
+
+<div><br></div><div style="font-size: 27px;"><b><u>Mini Batch Gradient Descent</font></u></b></div>
+
+<ul><li><b><font color="#E30000">Mini-batch gradient descent</font></b> is an additional approach which can work even faster than stochastic gradient descent</li>
+	<li>To summarize our approaches so far<ul>
+		<li>Batch gradient descent: Use all <i>m</i> examples in each iteration</li>
+		<li>Stochastic gradient descent: Use 1 example in each iteration</li>
+		<li>Mini-batch gradient descent: Use <i>b</i> examples in each iteration<ul>
+			<li><i>b</i> = mini-batch size</font></li></ul></li></ul></li>
+<li>So just like batch gradient descent, except we use tiny batches<ul>
+	<li>Typical range for <i>b</i> = 2-100 (10 maybe)</li></ul></li>
+<li>For example<ul>
+	<li><i>b</i> = 10</li>
+	<li>Get 10 examples from training set</li>
+	<li>Perform gradient descent update using the ten examples </li></ul></li></ul>
+
+
+<b>Mini-batch algorithm</b>
+
+<div><br>
+
+<img src="17_Large_Scale_Machine_Learning_files/Image [17].png" type="image/png" style="cursor: default;"/><ul>
+	
+	<li>We for-loop through <i>b-</i>size batches of <i>m</i></li>
+	<li>Compared to batch gradient descent this allows us to get through data in a much more efficient way<<ul>
+		<li>After just <i>b</i> examples we begin to improve our parameters</li>
+		<li>Don't have to update parameters after <i>every</i> example, and don't have to wait until you cycled through all the data</li></ul></li></ul>
+
+<div><b>Mini-batch gradient descent vs. stochastic gradient descent</b></div>
+
+<ul><li>Why should we use mini-batch?<ul>
+	<li>Allows you to have a vectorized implementation</li>
+	<li>Means implementation is much more efficient</li>
+	<li>Can partially parallelize your computation (i.e. do 10 at once)</li></ul></li>
+<li>A disadvantage of mini-batch gradient descent is the optimization of the parameter <i>b</i><ul>
+	<li>But this is often worth it!</li></ul>
+<li>To be honest, stochastic gradient descent and batch gradient descent are just specific forms of batch-gradient descent</li><ul>
+	<li>For mini-batch gradient descent, b is somewhere in between 1 and m and you can try to optimize for it!</li></ul></li></ul>
+
+<div><br></div><div style="font-size: 27px;"><b><u>Stochastic gradient descent convergence</font></u></b></div>
+
+<ul><li>We now know about stochastic gradient descent<ul>
+	<li>But how do you know when it's done!?</li>
+	<li>How do you tune learning rate alpha (α)?</li></ul></li></ul>
+
+<div><b>Checking for convergence</b></div>
+<ul><li>With batch gradient descent, we could plot cost function vs number of iterations<ul>
+	<li>Should decrease on every iteration</li>
+	<li>This works when the training set size was small because we could sum over all examples<ul>
+		<li>Doesn't work when you have a massive dataset</li></ul></li>
+	<li>With stochastic gradient descent<ul>
+		<li>We don't want to have to pause the algorithm periodically to do a summation over all data</li>
+		<li>Moreover, the whole point of stochastic gradient descent is to <i>avoid</i> those whole-data summations</li></ul></li></ul></li>
+<li>For stochastic gradient descent, we have to do something different<ul>
+	<li>Take cost function definition
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [18].png" type="image/png" style="cursor: default;"/><ul>
+	
+		<li>One half the squared error on a single example</li></ul></li>
+	<li>While the algorithm is looking at the example (x<sup>i</sup>,y<sup>i</sup>) but <i>before</i> it has updated θ we can compute the cost of the example (cost(θ,(x<sup>i</sup>,y<sup>i</sup>) <ul>
+		<li>i.e. we compute how well the hypothesis is working on the training example<ul>
+			<li>Need to do this before we update θ because if we did it after θ was updated the algorithm would be performing a bit better (because we'd have just used (x<sup>i</sup>,y<sup>i</sup>) to improve θ)</li></ul></li></ul></li>
+	<li>To check for the convergence, every 1000 iterations we can plot the costs averaged over the last 1000 examples<ul>
+		<li>Gives a running estimate of how well we've done on the last 1000 estimates</li>
+		<li>By looking at the plots we should be able to check convergence is happening</li></ul></li></ul></li>
+
+<li>What do these plots look like<ul>
+	<li>In general<ul>
+		<li>Might be a bit noisy (1000 examples isn't that much)</li></ul></li>
+	<li>If you get a figure like this
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [19].png" type="image/png" style="cursor: default;"/><br><ul>
+		
+		<li>That's a pretty decent run</li>
+		<li>Algorithm may have convergence</li></ul></li>
+	<li>If you use a smaller learning rate you may get an even better final solution
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [20].png" type="image/png" style="cursor: default;"/><ul>
+
+		<li>This is because the parameter oscillate around the global minimum</li>
+		<li>A smaller learning rate means smaller oscillations</li></ul></li>
+	<li>If you average over 1000 examples and 5000 examples you may get a smoother curve
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [21].png" type="image/png" style="cursor: default;"/><ul>
+		
+		<li>This disadvantage of a larger average means you get less frequent feedback</li></ul></li>
+	<li>Sometimes you may get a plot that looks like this
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [22].png" type="image/png" style="cursor: default;"/><br><ul>
+	
+		<li>Looks like cost is not decreasing at all</li>
+		<li>But if you then increase to averaging over a larger number of examples you do see this general trend<ul>
+			<li>Means the blue line was too noisy, and that noise is ironed out by taking a greater number of entires per average</li></ul></li>
+		<li>Of course, it may not decrease, even with a large number </li></ul></li>
+	<li>If you see a curve the looks like its increasing then the algorithm may be displaying divergence 
+
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [23].png" type="image/png" style="cursor: default;"/><br></li><ul>
+	
+		<li>Should use a smaller learning rate</li></ul></li></ul></li></ul>
+
+<div><b>Learning rate </b></div>
+
+<ul><li>We saw that with stochastic gradient descent we get this wandering around the minimum<ul>
+	<li>In most implementations the learning rate is held constant </li></ul></li>
+<li>However, if you want to converge to a minimum you can slowly decrease the learning rate over time<ul>
+	<li>A classic way of doing this is to calculate α as follows<br> α = const1/(iterationNumber + const2)</li>
+	<li>Which means you're guaranteed to converge somewhere <ul>
+		<li> You also need to determine const1 and const2</li></ul></li>
+	<li>BUT if you tune the parameters well, you can get something like this
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [24].png" type="image/png" style="cursor: default;"/></font></li></ul></li></ul>
+
+
+<div style="font-size: 27px;"><u><b>Online learning</u></b></font></div>
+
+<ul><li>New setting</font><ul>
+	<li>Allows us to model problems where you have a continuous stream of data you want an algorithm to learn from</font></li>
+	<li>Similar idea of stochastic gradient descent, in that you do slow updates</font></li>
+	<li>Web companies use various types of online learning algorithms to learn from traffic</font><ul>
+		<li>Can (for example) learn about user preferences and hence optimize your website</font></li></ul></li></ul></li>
+<li>Example - Shipping service</font><ul>
+	<li>Users come and tell you origin and destination</font></li>
+	<li>You offer to ship the package for some amount of money ($10 - $50)</font></li>
+	<li>Based on the price you offer, sometimes the user uses your service (y = 1), sometimes they don't (y = 0)</font></li>
+	<li>Build an algorithm to optimize what price we offer to the users</font><ul>
+		<li>Capture</font><ul>
+			<li>Information about user</font></li>
+			<li>Origin and destination</font></li></ul></li>
+		<li>Work out</font><ul>
+			<li>What the probability of a user selecting the service is</font></li></ul></li>
+		<li>We want to optimize the price</font></li></ul></li>
+	<li>To model this probability we have something like</font><ul>
+		<li>p(y = 1|x; θ) </font><ul>
+			<li>Probability that y =1, given x, parameterized by θ</font></li></ul></li>
+		<li>Build this model with something like</font><ul>
+			<li>Logistic regression</font></li>
+			<li>Neural network</font></li></ul></li></ul></li>
+		<li>If you have a website that runs continuously an online learning algorithm would do something like this</font><ul>
+			<li>User comes - is represented as an (x,y) pair where</font><ul>
+				<li>x - feature vector including price we offer, origin, destination </font></li>
+				<li>y - if they chose to use our service or not</font></li></ul></li>
+		<li>The algorithm updates θ using just the (x,y) pair
+		
+		<br><img src="17_Large_Scale_Machine_Learning_files/Image [25].png" type="image/png" style="cursor: default;"/></font></li>
+		
+		<li>So we basically update all the θ parameters every time we get some new data</font></li></ul></li>
+	<li> While in previous examples we might have described the data example as (x<sup>i</sup>,y<sup>i</sup>), for an online learning problem we discard this idea of a data &quot;set&quot; - instead we have a continuous stream of data so indexing is largely irrelevant as you're not storing the data (although presumably you could store it) /font></li></ul></li>
+
+<li>If you have a major website where you have a massive stream of data then this kind of algorithm is pretty reasonable</font><ul>
+	<li>You're free of the need to deal with all your training data</font></li></ul></li>
+<li>If you had a small number of users you could save their data and then run a normal algorithm on a dataset</font></li>
+<li>An online algorithm can adapt to changing user preferences</font></li><ul>
+	<li>So over time users may become more price sensitive </font></li>
+	<li>The algorithm adapts and learns to this</font></li>
+	<li>So your system is dynamic</font></li></ul></li></ul>
+
+<div><b>Another example - product search</font></b></div>
+<ul><li>Run an online store that sells cellphones</font><ul>
+	<li>You have a UI where the user can type in a query like, &quot;Android phone 1080p camera&quot;</font></li>
+	<li>We want to offer the user 10 phones per query</font></li></ul></li>
+<li>How do we do this</font><ul>
+	<li>For each phone and given a specific user query, we create a feature vector (x) which has data like features of the phone, how many words in the user query match the name of the phone, how many words in user query match description of phone</font><ul>
+		<li>Basically how well does the phone match the user query</font></li></ul></li>
+	<li>We want to estimate the probability of a user selecting a phone</font></li>
+	<li>So define </font><ul>
+		<li>y = 1 if a user clicks on a link</font></li>
+		<li>y = 0 otherwise</font></li></ul></li>
+	<li>So we want to learn</font><ul>
+		<li>p(y = 1|x ; θ) &lt;- this is the problem of learning the predicted <b><font color="#E30000">click through rate</font></b> (CTR) </li></ul></li>
+	<li>If you can estimate the CTR for any phone we can use this to show the highest probability phones first</font></li>
+	<li>If we display 10 phones per search, it means for each search we generate 10 training examples of data</font><ul>
+		<li>i.e. user can click through one or more, or none of them, which defines how well the prediction performed</font></li></ul></li></ul></li>
+<li>Other things you can do</font><ul>
+	<li>Special offers to show the user</font></li>
+	<li>Show news articles - learn what users like</font></li>
+	<li>Product recommendation</font></li></ul></li>
+<li> These problems could have been formulated using standard techniques, but they are the kinds of problems where you have so much data that this is a better way to do things </li></ul>
+
+<div><br><div style="font-size: 27px;"><b><u>Map reduce and data parallelism</font></u></b></div>
+
+<ul><li>Previously spoke about stochastic gradient descent and other algorithms</font></li><ul>
+	<li>These could be run on one machine</font></li>
+	<li>Some problems are just too big for one computer</font></li>
+	<li>Talk here about a different approach called Map Reduce </font></li></ul></li>
+<li>Map reduce example</font><ul>
+	<li>We want to do batch gradient descent
+	
+	<br><img src="17_Large_Scale_Machine_Learning_files/Image [26].png" type="image/png" style="cursor: default;"/></font><ul>
+	
+	<li>Assume m = 400</font><ul>
+		<li>Normally m would be more like 400 000 000</font></li>
+		<li>If m is large this is really expensive</font></li></ul></li></ul></li>
+	<li>Split training sets into different subsets</font><ul>
+		<li>So split training set into 4 pieces</font></li></ul></li>
+	<li> <b>Machine 1:</b> use (x<sup>1</sup>, y<sup>1</sup>), ..., (x<sup>100</sup>, y<sup>100</sup>) <ul>
+		<li> Uses first quarter of training set</font></li>
+		<li>Just does the summation for the first 100</font>
+
+		<br><img src="17_Large_Scale_Machine_Learning_files/Image [27].png" type="image/png" style="cursor: default;"/>
+		
+		<br><img src="17_Large_Scale_Machine_Learning_files/Image [28].png" type="image/png" style="cursor: default;"/></li></ul></li>
+	<li>So now we have these four temp values, and each machine does 1/4 of the work</font></li>
+	<li>Once we've got our temp variables</font><ul>
+		<li>Send to to a centralized master server</font></li>
+		<li>Put them back together</font></li>
+		<li>Update θ using
+		
+		<br><img src="17_Large_Scale_Machine_Learning_files/Image [29].png" type="image/png" style="cursor: default;"/></font><ul>
+
+			<li> This equation is doing the same as our original batch gradient descent algorithm</font></li></ul></li></ul></li></ul></li>
+<li>More generally map reduce uses the following scheme (e.g. where you split into 4)
+
+<br><img src="17_Large_Scale_Machine_Learning_files/Image [30].png" type="image/png" style="cursor: default;"/></font></li>
+
+<li>The bulk of the work in gradient descent is the summation</font><ul>
+	<li>Now, because each of the computers does a quarter of the work at the same time, you get a 4x speedup</font></li>
+	<li>Of course, in practice, because of network latency, combining results, it's slightly less than 4x, but still good!</font></li></ul></li>
+<li>Important thing to ask is</font><ul>
+	<li>&quot;Can algorithm be expressed as computing sums of functions of the training set?&quot;</font><ul>
+		<li>Many algorithms can!</font></li></ul></li></ul></li>
+<li>Another example</font><ul>
+	<li>Using an advanced optimization algorithm with logistic regression</font></li>
+
+	<li><img src="17_Large_Scale_Machine_Learning_files/Image [31].png" type="image/png" style="cursor: default;"/></font><ul>
+
+		<li>Need to calculate cost function - see we sum over training set</font></li>
+		<li>So split training set into x machines, have x machines compute the sum of the value over 1/xth of the data</font></li></ul></li>
+		
+		<li><img src="17_Large_Scale_Machine_Learning_files/Image [32].png" type="image/png" style="cursor: default;"/></font><ul>
+
+			<li>These terms are also a sum over the training set</font></li>
+			<li>So use same approach</font></li></ul></li></ul></li>
+<li>So with these results send temps to central server to deal with combining everything</font></li>
+<li>More broadly, by taking algorithms which compute sums you can scale them to very large datasets through parallelization </font><ul>
+	<li>Parallelization can come from</font><ul>
+		<li>Multiple machines</font></li>
+		<li>Multiple CPUs</font></li>
+		<li>Multiple cores in each CPU</font></li></ul></li>
+	<li>So even on a single compute can implement parallelization </font></li></ul></li>
+<li>The advantage of thinking about Map Reduce here is because you don't need to worry about network issues</font><ul>
+	<li> It's all internal to the same machine</font></li></ul></li>
+<li>Finally caveat/thought</font><ul>
+	<li>Depending on implementation detail, certain numerical linear algebra libraries can automatically parallelize your calculations across multiple cores</font></li>
+	<li>So, if this is the case and you have a good vectorization implementation you can not worry about local parallelization and the local libraries sort optimization out for you </font></li></ul></li></ul>
+
+<div><b>Hadoop</font></b></div>
+
+<ul><li>Hadoop is a good open source Map Reduce implementation</font></li>
+<li>Represents a top-level Apache project develop by a global community of developers</font><ul>
+	<li>Large developer community all over the world</font></li></ul></li>
+<li>Written in  Java</font></li>
+<li>Yahoo has been the biggest contributor</font><ul>
+	<li>Pushed a lot early on</font></li></ul></li>
+<li>Support now from Cloudera</font></li></ul>
+
+<div style="font-size: 27px;"><b><u>Interview with Cloudera CEO Mike Olson (2010)</font></u></b></div>
+
+<ul><li>Seeing a change in big data industry (Twitter, Facebook etc) - relational databases can't scale to the volumes of data being generated</font><ul>
+	<li><i><b>Q: Where the tech came from?</font></b></i><ul>
+		<li>Early 2000s - Google had too much data to process (and index)</font><ul>
+			<li>Designed and built Map Reduce</font><ul>
+				<li>Buy and mount a load of rack servers</font></li>
+				<li>Spread the data out among these servers (with some duplication)</font></li>
+				<li>Now you've stored the data and you have this processing infrastructure spread among the data</font><ul>
+					<li>Use local CPU to look at local data</font></li>
+					<li>Massive data parallelism</font></li></ul></li>
+				<li>Published as a paper in 2004</font><ul>
+					<li>At the time wasn't obvious why it was necessary - didn't support queries, transactions, SQL etc</font></li></ul></li></ul></li>
+		<li>When data was at &quot;human&quot; scale relational databases centralized around a single server was fine</font></li>
+		<li>But now we're scaling by Moore's law in two ways</font><ul>
+			<li>More data</font></li>
+			<li>Cheaper to store</font></li></ul></li></ul></li></ul></li></ul></li>
+
+<li><b>Q: How do people approach the issues in big data?</font></b></li><ul>
+	<li>People still use relational databases - great if you have predictable queries over structured data</font><ul>
+		<li>Data warehousing still used - long term market</font></li></ul></li>
+		<li>But the data people want to work with is becoming more complex and bigger</font><ul>
+			<li>Free text, unstructured data doesn't fit will into tables</font></li>
+			<li>Do sentiment analysis in SQL isn't really that good</font></li>
+			<li>So to do new kinds of processing need a new type of architecture</font></li></ul></li>
+		<li>Hadoop lets you do <i>data</i> processing - not transactional processing - on the big scale</font></li>
+		<li>Increasingly things like NoSQL is being used</font></li>
+		<li>Data centers are starting to chose technology which is aimed at a specific problem, rather than trying to shoehorn problems into an ER issue</font></li>
+		<li>Open source technologies are taking over for developer facing infrastructures and platforms</font></li></ul></li>
+
+<li><b>Q: What is Hadoop?</font></b><ul>
+	<li>Open source implementation of Map reduce (Apache software)</font></li>
+	<li>Yahoo invested a lot early on - developed a lot the early progress</font></li>
+	<li>Is two things</font><ul><li><b><font color="#1C3387">HDFS</font></b><br></font><ul>
+		<li>Disk on ever server</font></li>
+		<li>Software infrastructure to spread data</font></li></ul></li>
+	<li><b><font color="#1C3387" face="'Times New Roman'">Map reduce</font></b><ul>
+		<li>Lets you push code down to the data in parallel</font></li></ul></li></ul></li>
+	<li>As size increases you can just add more servers to scale up</font></li></ul></li>
+
+<li><b>Q: What is memcached?</font></b><ul>
+	<li>Ubiquitous invisible infrastructure that makes the web run</font></li>
+	<li>You go to a website, see data being delivered out of a MySQL database</font><ul>
+		<li>BUT, when infrastructure needs to scale querying a disk EVERY time is too much</font></li></ul></li>
+	<li>Memcache is a memory layer between disk and web server</font><ul>
+		<li>Cache reads</font></li>
+		<li>Push writes through incrementally</font></li>
+		<li>Is the glue that connects a website with a disk-backend</font></li></ul></li>
+	<li>Northscale is commercializing this technology</font></li>
+	<li>New data delivery infrastructure which has pretty wide adoption</font></li></ul></li>
+
+<li><b>Q: What is Django?</font></b><ul>
+<li>Open source tool/language</font></li>
+<li>Written in Python, uses MVC design and is basically a framework for hosting webpages - think Rails in Python (where Rails is in Ruby) </ul></li>
+
+<li><b>Q: What are some of the tool sets being used in data management? What is MySQL drizzle?</font></b><ul>
+	<li>Drizzle is a re-implementation of MySQL</font><ul>
+		<li>Team developing Drizzle feels they learned a lot of lessons when building MySQL</font></li>
+		<li>More modern architecture better targeted at web applications</font></li></ul></li>
+	<li>NoSQL</font><ul>
+		<li>Distributed hash tables</font></li>
+		<li>Idea is instead of a SQL query and fetching a record, go look up something from a store by name</font><ul>
+			<li>Go pull a record by name from a store</font></li></ul></li>
+		<li>So now systems being developed to support that, such as</font><ul>
+			<li>MongoDB</font></li>
+			<li>CouchDB</font></li></ul></li></ul></li>
+	<li>Hadoop companion projects</font><ul>
+		<li>Hive</font><ul>
+			<li>Lets you use SQL to talk to a Hadoop cluster</font></li></ul></li>
+		<li>HBase<br></font><ul>
+			<li>Sits on top of HDFS </font></li>
+			<li>Gives you key-value storage on top of HDFS - provides abstraction from distributed system</font></li></ul></li></ul></li>
+	<li>Good time to be working in big data</font><ul>
+		<li>Easy to set up small cluster through cloud system</font></li>
+		<li>Get a virtual cluster through Rackspace or Cloudera</font></li></ul></li></ul></li></ul>
+
+
+</div>
+</body>
+</html> 

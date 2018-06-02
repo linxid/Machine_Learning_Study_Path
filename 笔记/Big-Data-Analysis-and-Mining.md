@@ -36,17 +36,18 @@ and discovery algorithms, to produce a particular enumeration of patterns over t
 data
 
 ## 1.5 Main Data Mining Tasks:
-**Answer：** 
+**Answer：**
 1. Association rule mining (_**Two Steps:** Find All Frequent itemsets, Generate strong association rules from frequent itemsets_),
+Finding frequent patterns, associations, correlations, or causal structures among sets of items or objects in transaction databases, relational databases, and other information repositories.
+
 2. Cluster analysis (_**Methods:** Partitioning method, Hierarchical method, Density-Based method, and Grid-Based method_),
-3. Classification/Prediction, 
+3. Classification/Prediction,
 4. Outlier detection
 
 # Chapter2 Basic Concepts
 
 ## 2.1 Tasks of ML:
 **Answer：** supervised learning; Unsupervised learning; Semi-supervised learning
-Overfitting, Underfitting
 
 ## 2.2 How to avoid Overfitting:
 **Answer：** Increase Sample;Remove outliers;Decrease model complexity,train-validation-test
@@ -86,7 +87,6 @@ To resolve the challenge, like the curse of dimensionality, storage cost, and qu
 ### References：
 https://blog.csdn.net/linxid/article/details/79745964
 
-<<<<<<< HEAD:笔记/Big-Data-Analysis-and-Mining.md
 # Chapter4 Sampling for Big Data
 
 ## 4.1 Why we need sampling:
@@ -157,51 +157,6 @@ https://en.wikipedia.org/wiki/Sampling_(statistics)
 https://blog.csdn.net/ustbxy/article/details/45458725
 https://blog.csdn.net/baimafujinji/article/details/51407703  
 《Pattern Recognition and Machine Learning》Bishop
-=======
-# Chapter4 Sampling
-## Why Sampling
-* Big Data Issue : Storage Complexity, Complexity calculation
-* Posterior Estimation: Expectation estimation
-
-## Types of Sampling (What we did in class)
-### Basics
-* ITS - Inverse Transform Sampling
-* RS - Rejection Sampling
-* IS - Importance Sampling
-* MCMC - Markov Chain Monte Carlo
-* MHS - Metropolis-Hastings
-* GiS - Gibbs Sampling
-### Stream Sampling
-* Bernoulli Sampling
-* Resevoir Sampling
-* Sampling + KDD
-
-----------------------------------------------
-* ITS - Inverse Transform Sampling
-  - Idea: Sampling is based on Cumulative Distribution Function (CDF)
-  - CDF Sampling: Yi ~ U(0,1)
-                  Xi = CDF^-1(Yi)
-  - Drawbacks: It is hard to get the inverse function
-  
-* RS - Rejection Sampling
-  - Idea: Get a graph of the density function (DF) of all the samples
-          Accept the samples under the region of DF
-          Reject the others
-  - RS: Xi~ Q(X)
-        a ~ U(0,Q(Xi))
-        if (a <= P(Xi)): Accept
-        else : Reject
-        
-* IS - Importance Sampling
-  - Idea: No rejection like RS. Rather, assign weights to each instance
-          Target the correct distribution
-  - IS: E(f(X)) = (1/n) * Summation(f(Xi) * w(Xi))
-  
-*Difference between RS and IS
-  - Instances from RS share SAME WEIGHT, only SOME OF THE INSTANCES are reserved
-  - Instances from IS have DIFFERENT WEIGHT, only ALL THE INSTANCES are reserved
-  - IS is less sensitive to proposal distribution (just a little sensitive to PROPDIST)
->>>>>>> f52eb7c67a8a33a4f1dd765cb57d492e3a2a1a02:笔记/Big Data Analysis and Mining.md
 
 # Chapter5 Data Stream
 ## 5.1 What is Data Stream
@@ -335,12 +290,8 @@ https://en.wikipedia.org/wiki/PageRank#Algorithm
 may return an imbalanced partition.
 
 * **Ratio Cut & Normalized cut:**
-<<<<<<< HEAD:笔记/Big-Data-Analysis-and-Mining.md
   How to calculate Ratio Cut and Normalized Cut.We can use spectral clustering algorithm to calculate it.
 
-=======
-  How to calculate Ratio Cut and Normalized Cut. We can use a spectral clustering algorithm to calculate it.
->>>>>>> f52eb7c67a8a33a4f1dd765cb57d492e3a2a1a02:笔记/Big Data Analysis and Mining.md
 * **Modularity Maximization:**
 measure the strength of a community by taking into account the degree distribution.
 
@@ -350,8 +301,6 @@ measure the strength of a community by taking into account the degree distributi
 http://blog.sciencenet.cn/blog-3075-982948.html
 
 # Chapter7 Hadoop-Spark
-<<<<<<< HEAD:笔记/Big-Data-Analysis-and-Mining.md
-
 ## 7.1 Hadoop
 
 ### 7.1.1 What is Hadoop
@@ -386,18 +335,13 @@ The HDFS is a distributed, scalable, and portable file system written in Java fo
 * **fault tolerance:** Detection of faults and quick, automatic recovery from them is a core architectural goal of HDFS
 
 #### Hadoop vs other systems:
-=======
-## Hadoop
-### Definition.
 Hadoop is a software framework for distributed processing of large datasets across large clusters of computers
-### Design principles
-Automatic parallelization & distribution, fault tolerance and automatic recovery, clean and simple programming 
+### 7.1.2 Design principles
+Automatic parallelization & distribution, fault tolerance and automatic recovery, clean and simple programming
 abstraction
 * **Main properties of HDFS**
 Large, replication, failure, fault tolerance
 * **Hadoop vs other systems**
->>>>>>> f52eb7c67a8a33a4f1dd765cb57d492e3a2a1a02:笔记/Big Data Analysis and Mining.md
-
 |  | Distributed database | Hadoop|
 | --- | --- | --- |
 | Computing model | Transactions, concurrency control| Job and no concurrency control|
@@ -406,7 +350,6 @@ Large, replication, failure, fault tolerance
 | Fault tolerance | Rare | Common|
 | Key characteristics | Efficiency, optimizations, fine-tuning| Scalability, flexibility, fault tolerance|
 
-<<<<<<< HEAD:笔记/Big-Data-Analysis-and-Mining.md
 ### 7.1.3 [MapReduce](https://en.wikipedia.org/wiki/MapReduce)
 #### What is MapReduce:
 MapReduce is a programming model and an associated implementation for processing and generating big data sets with a parallel, distributed algorithm on a cluster.
@@ -428,26 +371,19 @@ Users only provide the “Map” and “Reduce” functions.
 Generalize MapReduce to support new apps within same engine
 
 ### MapReduce VS Spark:
-=======
-## SPARK
 * **MapReduce limitations**
 Great at one-pass computation, but inefficient for `multi-pass` algorithms.
 No efficient primitives for data sharing
 * **Spark's Goal**
 Generalize MapReduce to support new apps within same engine
+
 ### MapReduce VS Spark**
->>>>>>> f52eb7c67a8a33a4f1dd765cb57d492e3a2a1a02:笔记/Big Data Analysis and Mining.md
 
 | MapReduce | Spark |
 | --- | --- |
-| Great **at one-pass** computation, but inefficient for `multi-pass` algorithims | Extends programming languages with ** a distributed collection data-structure **(RDD)** |
+| Great **at one-pass** computation, but inefficient for `multi-pass` algorithims | Extends programming languages with a distributed collection data-structure **(RDD)** |
 | No efficient primitives for data sharing | Clean APIs in Java, Scala, Python, R |
 
-<<<<<<< HEAD:笔记/Big-Data-Analysis-and-Mining.md
 ### References：
 https://www.yiibai.com/hadoop/hadoop_introduction_to_hadoop.html
 https://blog.csdn.net/qq_26437925/article/details/78467216
-=======
-
-
->>>>>>> f52eb7c67a8a33a4f1dd765cb57d492e3a2a1a02:笔记/Big Data Analysis and Mining.md

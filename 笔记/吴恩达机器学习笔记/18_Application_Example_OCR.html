@@ -1,0 +1,268 @@
+﻿<html>
+<head>
+  <title>18_Application_Example_OCR</title>
+  <basefont face="Tahoma" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/209040 (en-US); Windows/6.1.7601 Service Pack 1;"/>
+  <link rel="stylesheet" type="text/css" href="style.css" media="all" />
+  <meta name="description" content="18: Machine Learning applications"/>
+  <meta name="keywords" content="machine learning, Stanford, OCR, machine learning example, ceiling analysis, artificial data generation"/>
+</head>
+<body>
+<a name="2833"/>
+<h1>18: Application Example OCR</h1>
+
+<p><a href="17_Large_Scale_Machine_Learning.html">Previous</a> <a href="19_Course_Summary.html">Next</a></body></html> <a href="index.html">Index</a> </p>
+
+<div>
+<u style="font-size: 27px;"><b>Problem description and pipeline</font></b></u>
+
+<ul><li>Case study focused around photo OCR</li>
+	<li>Three reasons to do this<ul>
+		<li>1) Look at how a <b><font color="#1C3387">complex system</font></b> can be put together</li>
+		<li>2) The idea of a machine learning <b><font color="#1C3387">pipeline</font></b><ul>
+			<li>What to do next</li>
+			<li>How to do it</li></ul></li>
+		<li>3) Some more interesting ideas<ul>
+			<li>Applying machine learning to tangible problems</li>
+			<li><b><font color="#1C3387">Artificial data synthesis</font></b></li></ul></li></ul></li></ul>
+
+<b>What is the photo OCR problem?</b>
+<div>
+<ul><li>Photo OCR = photo optical character recognition<ul>
+	<li>With growth of digital photography, lots of digital pictures</li>
+	<li>One idea which has interested many people is getting computers to understand those photos</li>
+	<li>The photo OCR problem is getting computers to read text in an image<ul>
+		<li>Possible applications for this would include<ul>
+			<li>Make searching easier (e.g. searching for photos based on words in them)<br></li>
+			<li>Car navigation</li></ul></li></ul></li></ul></li>
+	<li>OCR of documents is a comparatively easy problem<ul>
+		<li>From photos it's really hard</li></ul></li></ul>
+
+<b>OCR pipeline</b>
+<div>
+<ul><li>1) Look through image and find text</li>	
+<li>2) Do character segmentation </li>
+<li>3) Do character classification</font></li>
+<li>4) <i>Optional</i> some may do spell check after this too<ul>
+	<li>We're not focussing on such systems though</font></li></ul></li></ul>
+
+<div><img src="18_Application_Example_OCR_files/Image.png" type="image/png" style="cursor: default;"/></div>
+
+<ul><li><b><font color="#E30000">Pipelines</font></b> are common in machine learning<ul>
+	<li>Separate modules which may each be a machine learning component or data processing component</li></ul></li>
+<li>If you're designing a machine learning system, pipeline design is one of the most important questions<ul>
+	<li>Performance of pipeline and each module often has a big impact on the overall performance a problem</li>
+	<li>You would often have different engineers working on each module<ul>
+		<li>Offers a natural way to divide up the workload</li></ul></li></ul></li></ul>
+
+<b style="font-size: 27px;"><u>Sliding window image analysis</font></u></b>
+<div>
+<ul><li>How do the individual models work?</li>
+<li>Here focus on a sliding windows classifier</li>
+<li>As mentioned, stage 1 is <b><font color="#E30000">text detection</font></b></li><ul>
+	<li>Unusual problem in computer vision - different rectangles (which surround text) may have different aspect ratios (aspect ratio being height : width)<ul>
+		<li>Text may be short (few words) or long (many words)</li>
+		<li>Tall or short font</li>
+		<li>Text might be straight on</li>
+		<li>Slanted 
+		<br><img src="18_Application_Example_OCR_files/Image [1].png" type="image/png" style="cursor: default;"/></li></ul></li>
+	<li>Let's start with a simpler example</li></ul></li></ul>
+
+<div>
+<b>Pedestrian detection</b>
+<ul><li>Want to take an image and find pedestrians in the image
+<br><img src="18_Application_Example_OCR_files/Image [2].png" type="image/png" style="cursor: default;"/></li>
+<li>This is a slightly simpler problem because the aspect ration remains pretty constant</li>
+<br>
+<li>Building our detection system<ul>
+	<li>Have 82 x 36 aspect ratio<ul>
+		<li>This is a typical aspect ratio for a standing human</li></ul></li>
+	<li>Collect training set of positive and negative examples
+	<br><img src="18_Application_Example_OCR_files/Image [3].png" type="image/png" style="cursor: default;"/></li>
+	<li>Could have 1000 - 10 000 training examples</li>
+	<li>Train a neural network to take an image and classify that image as pedestrian or not<ul>
+		<li>Gives you a way to train your system</li></ul></li></ul></li>
+<li>Now we have a new image - how do we find pedestrians in it?<ul>
+	<li>Start by taking a rectangular 82 x 36 patch in the image 
+	<br><img src="18_Application_Example_OCR_files/Image [4].png" type="image/png" style="cursor: default;"/><ul>
+		<li>Run patch through classifier - hopefully in this example it will return y = 0</li></ul></li>
+	<li>Next slide the rectangle over to the right a little bit and re-run<ul>
+		<li>Then slide again</li>
+		<li>The amount you slide each rectangle over is a parameter called the step-size or stride<ul>
+			<li>Could use 1 pixel<ul>
+				<li>Best, but computationally expensive</li></ul></li>
+			<li>More commonly 5-8 pixels used</li></ul></li>
+		<li>So, keep stepping rectangle along all the way to the right<ul>
+			<li>Eventually get to the end</li></ul></li>
+		<li>Then move back to the left hand side but step down a bit too</li>
+		<li>Repeat until you've covered the whole image</li></ul></li>
+	<li>Now, we initially started with quite a small rectangle <ul>
+		<li>So now we can take a larger image patch (of the same aspect ratio)</li>
+		<li>Each time we process the image patch, we're resizing the larger patch to a smaller image, then running that smaller image through the classifier</li></ul></li>
+	<li>Hopefully, by changing the patch size and rastering repeatedly across the image, you eventually recognize all the pedestrians in the picture
+	<br><img src="18_Application_Example_OCR_files/Image [5].png" type="image/png" style="cursor: default;"/></li></ul></li></ul>
+
+<b>Text detection example</b><div>
+<ul><li>Like pedestrian detection, we generate a labeled training set with<ul>
+	<li>Positive examples (some kind of text)</li>
+	<li>Negative examples (not text)
+	<br><img src="18_Application_Example_OCR_files/Image [6].png" type="image/png" style="cursor: default;"/></li></ul></li>
+<li>Having trained the classifier we apply it to an image</li><ul>
+	<li>So, run a sliding window classifier at a fixed rectangle size</li>
+	<li>If you do that end up with something like this
+	<br><img src="18_Application_Example_OCR_files/Image [7].png" type="image/png" style="cursor: default;"/></li>
+	<li>White region show where text detection system thinks text is <ul>
+		<li>Different shades of gray correspond to probability associated with how sure the classifier is the section contains text<ul>
+			<li>Black - no text</li>
+			<li>White - text</li></ul></li>
+		<li>For text detection, we want to draw rectangles around all the regions where there is text in the image</li></ul></li>
+	<li>Take classifier output and apply an <b><font color="#1C3387">expansion algorithm</font></b></li><ul>
+		<li>Takes each of white regions and expands it</font></li>
+		<li>How do we implement this</li>
+			<ul><li>Say, for every pixel, is it within some distance of a white pixel?</li>
+			<li>If yes then colour it white
+			<br><img src="18_Application_Example_OCR_files/Image [8].png" type="image/png" style="cursor: default;"/></li></ul></li></ul></li>
+	<li>Look at connected white regions in the image above</font><ul>
+		<li>Draw rectangles around those which make sense as text (i.e. tall thin boxes don't make sense)
+		<br><img src="18_Application_Example_OCR_files/Image [9].png" type="image/png" style="cursor: default;"/></li></ul></li>
+	<li>This example misses a piece of text on the door because the aspect ratio is wrong</li><ul>
+		<li>Very hard to read</font></li></ul></li></ul></li></ul>
+
+<b>Stage two is character segmentation</b>
+<div>
+<ul><li>Use supervised learning algorithm</li>
+<li>Look in a defined image patch and decide, is there a split between two characters?<ul>
+	<li>So, for example, our first training data item below looks like there is such a split</li>
+	<li>Similarly, the negative examples are either empty or hold a full characters
+	<br><img src="18_Application_Example_OCR_files/Image [10].png" type="image/png" style="cursor: default;"/></font></li></ul></li>
+<li>We train a classifier to try and classify between positive and negative examples<ul>
+	<li>Run that classifier on the regions detected as containing text in the previous section</li></ul></li>
+<li>Use a 1-dimensional sliding window to move along text regions<ul>
+	<li>Does each window snapshot look like the split between two characters?<ul>
+		<li>If yes insert a split</li>
+		<li>If not move on</li></ul></li>
+	<li>So we have something that looks like this
+	<br><img src="18_Application_Example_OCR_files/Image [11].png" type="image/png" style="cursor: default;"/><br></font></li></ul></li></ul>
+
+<b>Character classification</font></b>
+<div>
+<ul><li>Standard OCR, where you apply standard supervised learning which takes an input and identify which character we decide it is</li><ul>
+	<li>Multi-class characterization problem</li></ul></li></ul>
+
+<div style="font-size: 27px;"><b><u>Getting lots of data: Artificial data synthesis</font></u></b></div>
+<ul><li>We've seen over and over that one of the most reliable ways to get a high performance machine learning system is to take a low bias algorithm and train on a massive data set<ul>
+	<li>Where do we get so much data from?</li>
+	<li>In ML we can do artificial data synthesis<ul>
+		<li>This doesn't apply to every problem</li>
+		<li>If it applies to your problem, it can be a great way to generate loads of data</li></ul></li></ul></li>
+	<li>Two main principles</li><ul>
+		<li>1) Creating data from scratch</li>
+		<li>2) If we already have a small labeled training set can we amplify it into a larger training set</li></ul></li></ul>
+
+<div><b>Character recognition as an example of data synthesis</b></div>
+<ul><li>If we go and collect a large labeled data set will look like this <ul>
+	<li>The goal is to take an image patch and have the system recognize the character</li>
+	<li>Let's treat the images as gray-scale (makes it a bit easer)
+	<br><img src="18_Application_Example_OCR_files/Image [12].png" type="image/png" style="cursor: default;"/></font></li></ul></li>
+<li>How can we amplify this<ul>
+	<li>Modern computers often have a big font library</li>
+	<li>If you go to websites, huge free font libraries</li>
+	<li>For more training data, take characters from different fonts, paste these characters again random backgrounds</li></ul></li>
+<li>After some work, can build a synthetic training set 
+<br><img src="18_Application_Example_OCR_files/Image [13].png" type="image/png" style="cursor: default;"/><br><ul>
+	<li>Random background</li>
+	<li>Maybe some blurring/distortion filters</li>
+	<li>Takes thought and work to make it look realistic<ul>
+		<li>If you do a sloppy job this won't help!</li>
+		<li>So unlimited supply of training examples</li></ul></li>
+	<li>This is an example of creating new data from scratch</li></ul></li>
+<li>Other way is to introduce distortion into existing data<ul>
+	<li>e.g. take a character and warp it<br><img src="18_Application_Example_OCR_files/Image [14].png" type="image/png" style="cursor: default;"/><ul>
+		<li>16 new examples</li>
+		<li>Allows you amplify existing training set</li></ul></li>
+	<li>This, again, takes though and insight in terms of deciding how to amplify</li></ul></li></ul>
+
+<b>Another example: speech recognition</b>
+<ul><li>Learn from audio clip - what were the words<ul>
+	<li>Have a labeled training example</li>
+	<li>Introduce audio distortions into the examples</li></ul></li>
+<li>So only took one example<ul>
+	<li>Created lots of new ones!</li></ul></li>
+<li>When introducing distortion, they should be reasonable relative to the issues your classifier may encounter</li></ul>
+
+<div><b>Getting more data</b></div>
+<ul><li>Before creating new data, make sure you have a low bias classifier<ul>
+	<li>Plot learning curve</li></ul></li>
+<li>If not a low bias classifier increase number of features<ul>
+	<li>Then create large artificial training set</li></ul></li>
+<li>Very important question: How much work would it be to get 10x data as we currently have?<ul>
+	<li>Often the answer is, &quot;Not that hard&quot;</li>
+	<li>This is often a huge way to improve an algorithm</li>
+	<li>Good question to ask yourself or ask the team</li></ul></li>
+<li>How many minutes/hours does it take to get a certain number of examples<ul>
+	<li>Say we have 1000 examples</li>
+	<li>10 seconds to label an example</li>
+	<li>So we need another 9000 - 90000 seconds </li>
+	<li>Comes to a few days (25 hours!)</li></ul></li>
+<li>Crowd sourcing is also a good way to get data</li><ul>
+	<li>Risk or reliability issues</li>
+	<li>Cost</li>
+	<li>Example</li><ul>
+		<li>E.g. Amazon mechanical turks</li></ul></li></ul></li></ul>
+
+<div style="font-size: 27px;"><b><u>Ceiling analysis: What part of the pipeline to work on next</u></b></div>
+<ul><li>Through the course repeatedly said one of the most valuable resources is developer time</li><ul>
+	<li>Pick the right thing for you and your team to work on</li>
+	<li>Avoid spending a lot of time to realize the work was pointless in terms of enhancing performance</li></ul></li></ul>
+
+<div><b>Photo OCR pipeline</b></div>
+<ul><li>Three modules<ul>
+	<li>Each one could have a small team on it</li>
+	<li>Where should you allocate resources?</li></ul></li>
+<li>Good to have a single real number as an evaluation metric<ul>
+	<li>So, character accuracy for this example </li>
+	<li>Find that our test set has 72% accuracy</li></ul></li></ul>
+
+<b>Ceiling analysis on our pipeline</b>
+<ul><li>We go to the first module</li><ul>
+	<li>Mess around with the test set - manually tell the algorithm where the text is</li>
+	<li>Simulate if your text detection system was 100% accurate<ul>
+		<li>So we're feeding the character segmentation module with 100% accurate data now</li></ul></li>
+	<li>How does this change the accuracy of the overall system
+	<br><img src="18_Application_Example_OCR_files/Image [15].png" type="image/png" style="cursor: default;"/></li>
+	<li>Accuracy goes up to 89%</li></ul></li>
+<li>Next do the same for the character segmentation<ul>
+	<li>Accuracy goes up to 90% now</li></ul></li>
+<li>Finally doe the same for character recognition<ul>
+	<li>Goes up to 100%</li></ul></li>
+<li>Having done this we can qualitatively show what the upside to improving each module would be<ul>
+	<li>Perfect text detection improves accuracy by 17%!<ul>
+		<li>Would bring the biggest gain if we could improve</li></ul></li>
+	<li>Perfect character segmentation would improve it by 1%<ul>
+		<li>Not worth working on</li></ul></li>
+	<li>Perfect character recognition would improve it by 10%<ul>
+		<li>Might be worth working on, depends if it looks easy or not</li></ul></li></ul></li>
+<li>The &quot;ceiling&quot; is that each module has a ceiling by which making it perfect would improve the system overall</li></ul>
+
+<div><b>Other example - face recognition</b></div>
+<ul><li>NB this is not how it's done in practice
+<br><img src="18_Application_Example_OCR_files/Image [16].png" type="image/png" style="cursor: default;"/><ul>
+	<li>Probably more complicated than is used in practice</li></ul></li>
+<li>How would you do ceiling analysis for this<ul>
+	<li>Overall system is 85%</li>
+	<li>+ Perfect background -&gt; 85.1%<ul>
+		<li>Not a crucial step</li></ul></li>
+	<li>+ Perfect face detection -&gt; 91%<ul>
+		<li>Most important module to focus on</li></ul></li>
+	<li>+ Perfect eyes -&gt;95%</li>
+	<li>+ Perfect nose -&gt; 96%</li>
+	<li>+ Perfect mouth -&gt; 97%</li>
+	<li>+ Perfect logistic regression -&gt; 100%</li></ul></li>
+<li>Cautionary tale<ul>
+	<li>Two engineers spent 18 months improving background pre-processing<ul>
+		<li>Turns out had no impact on overall performance</li>
+		<li>Could have saved three years of man power if they'd done ceiling analysis</li></ul></li></ul></li></ul></div>
+
+</body>
+</html> 
