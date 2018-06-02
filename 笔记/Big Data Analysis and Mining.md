@@ -34,6 +34,8 @@ data
 ## 1.5 Main Data Mining Tasks:
 **Answer：** 
 1. Association rule mining (_**Two Steps:** Find All Frequent itemsets, Generate strong association rules from frequent itemsets_),
+Finding frequent patterns, associations, correlations, or causal structures among sets of items or objects in transaction databases, relational databases, and other information repositories.
+
 2. Cluster analysis (_**Methods:** Partitioning method, Hierarchical method, Density-Based method, and Grid-Based method_),
 3. Classification/Prediction, 
 4. Outlier detection
@@ -268,35 +270,36 @@ measure the strength of a community by taking into account the degree distributi
 http://blog.sciencenet.cn/blog-3075-982948.html
 
 # Chapter7 Hadoop-Spark
-## Hadoop
-### Definition.
+## 7.1 Hadoop
+### 7.1.1 Definition.
 Hadoop is a software framework for distributed processing of large datasets across large clusters of computers
-### Design principles
+### 7.1.2 Design principles
 Automatic parallelization & distribution, fault tolerance and automatic recovery, clean and simple programming 
 abstraction
 * **Main properties of HDFS**
 Large, replication, failure, fault tolerance
-* **Hadoop vs other systems**
+### 7.1.2 Hadoop vs other systems
 
 |  | Distributed database | Hadoop|
 | --- | --- | --- |
-| Computing model | Transactions, concurrency control| Job and no concurrency control|
-| Data model | Sturcture data, read/write mode | un(semi)structure, read only mode|
-| Cost model | Expensive| Cheap|
-| Fault tolerance | Rare | Common|
-| Key characteristics | Efficiency, optimizations, fine-tuning| Scalability, flexibility, fault tolerance|
+| **Computing model** | Transactions, concurrency control| Job and no concurrency control|
+| **Data model** | Sturcture data, read/write mode | un(semi)structure, read only mode|
+| **Cost model** | Expensive| Cheap|
+| **Fault tolerance** | Rare | Common|
+| **Key characteristics** | Efficiency, optimizations, fine-tuning| Scalability, flexibility, fault tolerance|
 
-## SPARK
+## 7.2 SPARK
+### 7.2.1 Why SPARK?
 * **MapReduce limitations**
 Great at one-pass computation, but inefficient for `multi-pass` algorithms.
 No efficient primitives for data sharing
 * **Spark's Goal**
 Generalize MapReduce to support new apps within same engine
-### MapReduce VS Spark**
+### 7.2.2 MapReduce VS Spark
 
 | MapReduce | Spark |
 | --- | --- |
-| Great **at one-pass** computation, but inefficient for `multi-pass` algorithims | Extends programming languages with ** a distributed collection data-structure **(RDD)** |
+| Great **at one-pass** computation, but inefficient for `multi-pass` algorithims | Extends programming languages with a distributed collection data-structure **(RDD)** |
 | No efficient primitives for data sharing | Clean APIs in Java, Scala, Python, R |
 
 
