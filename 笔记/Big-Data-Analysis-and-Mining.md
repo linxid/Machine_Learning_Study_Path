@@ -5,7 +5,7 @@ tags: [大数据,数据分析,数据挖掘]
 ---
 
 ![image.png](https://upload-images.jianshu.io/upload_images/665202-bb94c950d325d43f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-<!--more-->  
+<!--more-->
 
 csdn：https://blog.csdn.net/linxid/article/details/80494922
 
@@ -117,23 +117,32 @@ samling based on the inverse of Cumulative Distribution Function
 The problem of Rejection Sampling can be solved by using Adaptive Rejection sampling.
 **Algorithm:**
 * 1.Obtain a sample y from proposal distribution Y and a sample u from Uniform(0,1)(the uniform distribution over the unit interval).
-* 2.If u<f(y)/Mg(y)(acceptance probability) : accept y;  
+* 2.If u<f(y)/Mg(y)(acceptance probability) : accept y;
   else:reject.
+
+#### Adaptive Sampling:
+It is useful for concave function of log-concave.
+1. Let {xi,... xk} be the k starting points.
+2. Calculate uk(x), the piece-wise linear upper bound formed from the tangents
+ to h(x) at each point xi
+ ![image.png](https://upload-images.jianshu.io/upload_images/665202-26724f070ed29b53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 4.2.3 Importance Sampling
 Not reject but assign weight to each instance so that the correct distribution is targeted.
+![image.png](https://upload-images.jianshu.io/upload_images/665202-58393d7deba32d59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 ### 4.2.4 Rejection Sampling VS Importance Sampling:
 * Instances from RS share the same “weight”, only some of instances are reserved
 * Instances from IS have different weight, all instances are reserved
-* IS is less sensitive to proposal distribution  
+* IS is less sensitive to proposal distribution
 
 ## 4.3 MCMC(Markov chain Monte Carlo)
-**Markov property:**  
+**Markov property:**
  If the conditional probability distribution of future states of the process depends only upon the present state.
  ![image.png](https://upload-images.jianshu.io/upload_images/665202-df5dd02a33714ebf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-**Markov chain:**  
+**Markov chain:**
 A Markov chain is a sequence of random variables x1,x2,x3...with Markov property.
 
 ### 4.3.1 MH(Metropolis-Hastings) Sampling：
@@ -155,7 +164,7 @@ https://blog.csdn.net/itplus/article/details/19168937
 https://blog.csdn.net/google19890102/article/details/51755242
 https://en.wikipedia.org/wiki/Sampling_(statistics)
 https://blog.csdn.net/ustbxy/article/details/45458725
-https://blog.csdn.net/baimafujinji/article/details/51407703  
+https://blog.csdn.net/baimafujinji/article/details/51407703
 《Pattern Recognition and Machine Learning》Bishop
 
 # Chapter5 Data Stream
