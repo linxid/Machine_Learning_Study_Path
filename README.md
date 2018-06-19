@@ -40,4 +40,4 @@
 
 ### 3.2 书籍：
 #### [《Tensorflow：实战Google深度学习框架》](https://book.douban.com/subject/26976457/)[源码和数据](https://github.com/caicloud/tensorflow-tutorial)
-#### [Scikit-Learn与TensorFlow机器学习实用指南](http://item.jd.com/12241590.html) [中文版](https://github.com/apachecn/hands_on_Ml_with_Sklearn_and_TF)
+#### [《Scikit-Learn与TensorFlow机器学习实用指南》](http://item.jd.com/12241590.html) [中文版](https://github.com/apachecn/hands_on_Ml_with_Sklearn_and_TF)
