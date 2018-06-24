@@ -27,7 +27,7 @@
 ## 一、入门
 ### 1.1 视频：
 #### 吴恩达 深度学习课程 [Coursera](https://www.coursera.org/specializations/deep-learning)   [网易云课堂](http://mooc.study.163.com/smartSpec/detail/1001319001.htm) [笔记](http://www.ai-start.com/dl2017/)
-
+#### 谷歌机器学习速成[课程](https://developers.google.cn/machine-learning/crash-course/prereqs-and-prework)[练习](https://developers.google.cn/machine-learning/crash-course/exercises)[术语库](https://developers.google.cn/machine-learning/crash-course/glossary)
 
 ## 二、进阶
 #### CS231n:Convolutional Neural Networks for Visual Recognition [官网](http://cs231n.stanford.edu/)  [网易云课堂](http://study.163.com/course/introduction/1003223001.hm)
