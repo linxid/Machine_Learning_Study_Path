@@ -103,3 +103,4 @@
 * [XGBoost](http://xgboost.readthedocs.io/en/latest/get_started/)
 * [CatBoost](https://tech.yandex.com/catboost/doc/dg/concepts/python-installation-docpage/)
 * [xLearn](http://xlearn-doc.readthedocs.io/en/latest/start.html)
+* [imbalanced-learn：处理样本不均衡问题](http://contrib.scikit-learn.org/imbalanced-learn/stable/index.html)
