@@ -9,12 +9,13 @@
 * [Coursera](https://www.coursera.org/learn/machine-learning)
   
 * [网易云课堂](http://study.163.com/course/introduction/1004570029.htm?courseId=1004570029)  
-* [笔记](https://github.com/linxid/Machine_Learning_Study_Path/tree/master/%E7%AC%94%E8%AE%B0/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0)    
-#### fast.ai  
-* [官网](http://www.fast.ai/)
+* [英文笔记](https://github.com/linxid/Machine_Learning_Study_Path/tree/master/%E7%AC%94%E8%AE%B0/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0)   
+* [中文笔记、字幕](https://github.com/fengdu78/Coursera-ML-AndrewNg-Notes)  
 
+#### fast.ai  
+* [官网](http://www.fast.ai/)  
 * [Part1:Practical Deep Learning For Coders](http://course.fast.ai/)  
-* [Part2: Cutting Edge Deep Learning For Coders](http://course.fast.ai/part2.html)
+* [Part2: Cutting Edge Deep Learning For Coders](http://course.fast.ai/part2.html)  
 
 #### [百度PaddlePaddle公开课：](http://ai.baidu.com/paddlepaddle/openCourses)
 * 机器学习入门
