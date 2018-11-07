@@ -83,6 +83,9 @@
 ## 3.2 Keras:
 * [中文文档](http://keras-cn.readthedocs.io/en/latest/)
 * [英文文档](https://keras.io/)
+* [《Deep Learning with Keras》](http://shop.oreilly.com/product/9781787128422.do)
+* [《Deep Learning with Python》(Keras之父)](https://book.douban.com/subject/27038207/)
+
 ## 3.3 PyTorch：
 * [官网](https://pytorch.org/)
 * [中文文档](https://pytorch-cn.readthedocs.io/zh/latest/)  
