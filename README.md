@@ -80,7 +80,7 @@
 
 
 下载链接：https://pan.baidu.com/s/12w9NjsnOSPUAX5U4BVvBIg 提取码: hucw
-## 三、框架
+## 3.框架
 ## 3.1 TensorFlow：
 * [API文档](https://www.tensorflow.org/api_docs/python/)
 * [斯坦福CS20:Tensorflow for Deep Learning Research](https://web.stanford.edu/class/cs20si/)
