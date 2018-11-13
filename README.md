@@ -80,31 +80,12 @@
 
 
 下载链接：https://pan.baidu.com/s/12w9NjsnOSPUAX5U4BVvBIg 提取码: hucw
+
 ## 3.框架
-## 3.1 TensorFlow：
-* [API文档](https://www.tensorflow.org/api_docs/python/)
-* [斯坦福CS20:Tensorflow for Deep Learning Research](https://web.stanford.edu/class/cs20si/)
-* [《Tensorflow：实战Google深度学习框架》](https://book.douban.com/subject/26976457/)[源码和数据](https://github.com/caicloud/tensorflow-tutorial)
-* [《Scikit-Learn与TensorFlow机器学习实用指南》](http://item.jd.com/12241590.html) [中文版](https://github.com/apachecn/hands_on_Ml_with_Sklearn_and_TF)
-
-## 3.2 Keras:
-* [中文文档](http://keras-cn.readthedocs.io/en/latest/)
-* [英文文档](https://keras.io/)
-* [《Deep Learning with Keras》](http://shop.oreilly.com/product/9781787128422.do)
-* [《Deep Learning with Python》(Keras之父)](https://book.douban.com/subject/27038207/)
-
-## 3.3 PyTorch：
-* [官网](https://pytorch.org/)
-* [中文文档](https://pytorch-cn.readthedocs.io/zh/latest/)  
-* [英文文档](https://pytorch.org/docs/stable/index.html)
-* [教程](https://pytorch.org/tutorials/)
-
-## 3.4 PaddlePaddle：
-* [技术文档](http://staging.paddlepaddle.org/docs/develop/documentation/zh/getstarted/index_cn.html)
-* [模型库](http://staging.paddlepaddle.org/docs/develop/models/README.cn.html)
-* [实战视频教程](http://ai.baidu.com/paddlepaddle/openCourses)
-
-## 3.5 常用python库：
+* [TensorFlow](https://www.tensorflow.org/api_docs/python/)
+* [Keras](http://keras-cn.readthedocs.io/en/latest/)
+* [PyTorch](https://pytorch.org/)
+* [PaddlePaddle](http://staging.paddlepaddle.org/docs/develop/documentation/zh/getstarted/index_cn.html)
 * [pandas](http://pandas.pydata.org/index.html)
 * [sklearn](http://sklearn.apachecn.org/)
 * [LightGBM](http://lightgbm.apachecn.org/cn/latest/index.html)
