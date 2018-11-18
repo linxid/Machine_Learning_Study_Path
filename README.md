@@ -123,5 +123,5 @@ UCLA的一名本科生（自愧不如啊），很多内容为初学者准备，�
 
 * [Andrew Trask的博客](http://iamtrask.github.io/)：  
 非常推荐，博主是DeepMind的研究科学家和博士。简单列几篇他的博客：
-[Tutorial: Deep Learning in PyTorch](http://iamtrask.github.io/2017/01/15/pytorch-tutorial/)  
+[Tutorial: Deep Learning in PyTorch](http://iamtrask.github.io/2017/01/15/pytorch-tutorial/)    
 [Anyone Can Learn To Code an LSTM-RNN in Python (Part 1: RNN)](http://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/)
